@@ -1,7 +1,8 @@
-./src/earth_explorer.json
-./data
-./figures
-./src/utilities
+src/earth_explorer.json
+data
+src/utilities
+src/ice_animate_stack.py
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
