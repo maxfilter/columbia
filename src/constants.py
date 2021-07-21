@@ -27,11 +27,13 @@ LANDSAT7_STACKFILE = LANDSAT_ROOT + '/columbia_landsat7_stack.hdf5'
 LANDSAT8_STACKFILE = LANDSAT_ROOT + '/columbia_landsat8_stack.hdf5'
 SENTINEL_STACKFILE = SENTINEL_ROOT + '/columbia_sentinel_stack.hdf5'
 ICE_THICKNESS_STACKFILE = ICE_THICKNESS_ROOT + '/columbia_ice_thickness_stack.hdf5'
-SECULAR_VELOCITY_MODEL_STACKFILE = VELOCITY_ROOT + '/columbia_secular_velocity_model_stack.hdf5'
-SECULAR_VELOCITY_MODEL_RELATIVE_STACKFILE = VELOCITY_ROOT + '/columbia_secular_velocity_model_relative_stack.hdf5'
-SEASONAL_VELOCITY_MODEL_STACKFILE = VELOCITY_ROOT + '/columbia_seasonal_velocity_model_stack.hdf5'
-SEASONAL_VELOCITY_RAW_STACKFILE = VELOCITY_ROOT + '/columbia_seasonal_velocity_raw_stack.hdf5'
-SECULAR_VELOCITY_RAW_STACKFILE = VELOCITY_ROOT + '/columbia_secular_velocity_raw_stack.hdf5'
+
+SECULAR_VELOCITY_MODEL_STACKFILE = VELOCITY_ROOT + '/columbia_secular_v_model_stack.hdf5'
+SECULAR_VELOCITY_MODEL_RELATIVE_STACKFILE = VELOCITY_ROOT + '/columbia_secular_v_model_relative_stack.hdf5'
+SEASONAL_VELOCITY_MODEL_STACKFILE = VELOCITY_ROOT + '/columbia_seasonal_v_model_stack.hdf5'
+SEASONAL_VELOCITY_RAW_STACKFILE = VELOCITY_ROOT + '/columbia_seasonal_v_raw_stack.hdf5'
+SECULAR_VELOCITY_RAW_STACKFILE = VELOCITY_ROOT + '/columbia_secular_v_raw_stack.hdf5'
+
 DEM_MODEL_STACKFILE = ARCTICDEM_ROOT + '/columbia_dem_model_stack.hdf5'
 DEM_MODEL_RELATIVE_STACKFILE = ARCTICDEM_ROOT + '/columbia_dem_model_relative_stack.hdf5'
 ICE_THICKNESS_MODEL_STACKFILE = ICE_THICKNESS_ROOT + '/columbia_ice_thickness_model_stack.hdf5'
@@ -39,8 +41,8 @@ ICE_THICKNESS_MODEL_RELATIVE_STACKFILE = ICE_THICKNESS_ROOT + '/columbia_ice_thi
 
 # Rasterfile names
 LANDSAT_RASTERFILE = LANDSAT_ROOT + '/landsat.tif'
-SEASONAL_VELOCITY_AMPLITUDE_RASTERFILE = VELOCITY_ROOT + '/columbia_seasonal_velocity_amplitude.tif'
-SEASONAL_VELOCITY_PHASE_RASTERFILE = VELOCITY_ROOT + '/columbia_seasonal_velocity_phase.tif'
+SEASONAL_VELOCITY_AMPLITUDE_RASTERFILE = VELOCITY_ROOT + '/columbia_seasonal_v_amplitude.tif'
+SEASONAL_VELOCITY_PHASE_RASTERFILE = VELOCITY_ROOT + '/columbia_seasonal_v_phase.tif'
 
 # NetCDF File names
 BEDROCK_NC = BEDROCK_ROOT + '/ColumbiaBedrock.nc'
