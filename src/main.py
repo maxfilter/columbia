@@ -20,11 +20,11 @@ def preprocess(verbose=False):
     preprocess_sentinel()
 
 def analyze():
-    # analyze_velocity()
+    analyze_velocity()
     # analyze_bedrock()
     # analyze_ice_thickness()
     # analyze_dem()
-    analyze_driving_stress()
+    # analyze_driving_stress()
 
 def main():
     # verbose = True

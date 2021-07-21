@@ -9,6 +9,7 @@ import warnings
 from functools import partial
 from itertools import product
 from multiprocessing import Pool
+from scipy.optimize import curve_fit
 
 # Local
 import sys
@@ -332,6 +333,50 @@ def view_transect_seasonal_amp_phase(transect, dist, label, show=False):
     if show:
         plt.show()
 
+def view_amplitude_model(transects, save, show=False):
+    v_stack = ice.Stack('..' + V_STACKFILE)
+    amp = ice.Raster(rasterfile='..' + SEASONAL_VELOCITY_AMPLITUDE_RASTERFILE)
+
+    fig, axs = plt.subplots(nrows=3, figsize=(9,9))
+
+    plt.suptitle('Seasonal Amplitude Models', fontweight='bold')
+
+    for i, label in enumerate([COLUMBIA_MAIN, COLUMBIA_EAST, POST]):
+        transect = transects[label]
+        dist = ice.compute_path_length(transect['x'], transect['y'])
+        amp_transect = smooth_timeseries(load_timeseries(None, transect, data=amp.data, hdr=v_stack.hdr))
+
+        # Plot raw data
+        axs[i].plot(dist, amp_transect)
+
+        # Replace nan values with real numbers for optimization
+        amp_transect = np.nan_to_num(amp_transect)
+
+        # Ignore noise at glacier termini
+        start_idx = np.argmax(amp_transect)
+        y = amp_transect[start_idx:]
+        x = dist[start_idx:]
+
+        # Model amplitude
+        # y = ae^(bx)
+        a, b = curve_fit(lambda t, a, b: a*np.exp(b*t), x, y, p0=(1500, -0.00015))[0]
+        y = a*np.exp(b*x)
+        axs[i].plot(x, y, 'r')
+
+        # Add equation text box
+        equation = '$y=%de^{%fx}$' % (a, b)
+        axs[i].text(x[int(len(x)*.5)], y[int(len(y)*.25)], equation, color='r', fontsize=12)
+
+        axs[i].set_title(snake_to_title(label))
+        axs[i].set_xlabel('Upstream Distance (m)')
+        axs[i].set_ylabel('Amplitude (m/yr)')
+
+    fig.set_tight_layout(True)  
+    plt.savefig(save, dpi=300)
+    if show:
+        plt.show()
+    v_stack.fid.close()
+
 def view_seasonal_secular_timeseries_fit(seasonal_model, secular_model, seasonal_raw, secular_raw, transect, label, idx=125, show=False):
     v_stack = ice.Stack('..' + V_STACKFILE)
 
@@ -384,6 +429,8 @@ def view_model():
     secular_model = ice.Stack('..' + SECULAR_VELOCITY_MODEL_STACKFILE)
     secular_raw = ice.Stack('..' + SECULAR_VELOCITY_RAW_STACKFILE)
     transects = load_transects()
+
+    view_amplitude_model(transects, '..' + FIG_ROOT + '/seasonal_amplitude_model.jpg')
 
     for label in [COLUMBIA_MAIN, COLUMBIA_EAST, POST]:
         transect = transects[label]
