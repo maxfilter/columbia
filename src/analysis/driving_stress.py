@@ -11,7 +11,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 import sys
 
-from utils import load_timeseries, load_transects, snake_to_title
+from utils import load_timeseries, load_transects, smooth_timeseries, snake_to_title
 sys.path.append('..')
 from constants import COLUMBIA_EAST, COLUMBIA_MAIN, DEM_MODEL_STACKFILE, FIG_ROOT, GRAVITATIONAL_ACCELERATION, ICE_DENSITY, ICE_THICKNESS_MODEL_STACKFILE, POST
 
@@ -75,6 +75,32 @@ def animate_driving_stress_timeseries(driving_stress_dict, transects, tdec, save
     anim = animation.FuncAnimation(fig, animate, interval=interval, frames=len(tdec), repeat=True)
     anim.save(save, dpi=300)
 
+def view_driving_stress_timeseries(driving_stress_dict, elevation_model, transects, save, idx=500):
+    
+    fig, axs = plt.subplots(nrows=3, figsize=(9,9))
+    elevation = elevation_model._datasets['data'][idx]
+
+    plt.suptitle('Driving Stress Along Transects on ' + ice.tdec2datestr(elevation_model.tdec[idx]))
+
+    for i, label in enumerate([COLUMBIA_MAIN, COLUMBIA_EAST, POST]):
+        transect = transects[label]
+        dist = ice.compute_path_length(transect['x'], transect['y'])
+        axs[i].plot(dist, driving_stress_dict[label][idx], label='Driving Stress')
+
+        # Plot mean velocity
+        elevation_transect = smooth_timeseries(load_timeseries(None, transect, data=elevation, hdr=elevation_model.hdr))
+        eax = axs[i].twinx()
+        eax.plot(dist, elevation_transect, 'r', label='Elevation')
+        eax.set_ylabel('Elevation (m)')
+        eax.legend()
+        
+        axs[i].set_title(snake_to_title(label))
+        axs[i].set_xlabel('Upstream Distance')
+        axs[i].set_ylabel('Driving Stress')
+
+    fig.set_tight_layout(True)
+    plt.savefig(save, dpi=300)
+
 def analyze_driving_stress():
     transects = load_transects()
     dem_model = ice.Stack('..' + DEM_MODEL_STACKFILE)
@@ -86,5 +112,6 @@ def analyze_driving_stress():
         transect = transects[label]
         driving_stress_dict[label] = get_driving_stress_timeseries(dem_model, thickness_model, transect)
 
-    animate_driving_stress_timeseries(driving_stress_dict, transects, dem_model.tdec, '..' + FIG_ROOT + '/driving_stress_timeseries.mp4')
+    # animate_driving_stress_timeseries(driving_stress_dict, transects, dem_model.tdec, '..' + FIG_ROOT + '/driving_stress_timeseries.mp4')
+    view_driving_stress_timeseries(driving_stress_dict, dem_model, transects, '..' + FIG_ROOT + '/driving_stress_transect.jpg')
 
