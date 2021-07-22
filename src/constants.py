@@ -12,6 +12,7 @@ ARCTICDEM_ROOT = DATA_ROOT + '/arcticdem'
 SENTINEL_ROOT = DATA_ROOT + '/sentinel'
 ICE_THICKNESS_ROOT = DATA_ROOT + '/ice_thickness'
 TERMINUS_ROOT = DATA_ROOT + '/terminus'
+STRESS_ROOT = DATA_ROOT + '/stress'
 
 # Stackfile names
 V_STACKFILE = VELOCITY_ROOT + '/columbia_v_stack.hdf5'
@@ -19,9 +20,11 @@ VX_STACKFILE = VELOCITY_ROOT + '/columbia_vx_stack.hdf5'
 VY_STACKFILE = VELOCITY_ROOT + '/columbia_vy_stack.hdf5'
 EX_STACKFILE = VELOCITY_ROOT + '/columbia_ex_stack.hdf5'
 EY_STACKFILE = VELOCITY_ROOT + '/columbia_ey_stack.hdf5'
-E_XX_STACKFILE = VELOCITY_ROOT + '/columbia_e_xx_stack.hdf5'
-E_YY_STACKFILE = VELOCITY_ROOT + '/columbia_e_yy_stack.hdf5'
-E_XY_STACKFILE = VELOCITY_ROOT + '/columbia_e_xy_stack.hdf5'
+E_XX_STACKFILE = STRESS_ROOT + '/columbia_e_xx_stack.hdf5'
+E_YY_STACKFILE = STRESS_ROOT + '/columbia_e_yy_stack.hdf5'
+E_XY_STACKFILE = STRESS_ROOT + '/columbia_e_xy_stack.hdf5'
+T_DX_STACKFILE = STRESS_ROOT + '/columbia_t_dx_stack.hdf5'
+T_DY_STACKFILE = STRESS_ROOT + '/columbia_t_dy_stack.hdf5'
 ARCTICDEM_STACKFILE = ARCTICDEM_ROOT + '/columbia_arcticdem_stack.hdf5'
 LANDSAT7_STACKFILE = LANDSAT_ROOT + '/columbia_landsat7_stack.hdf5'
 LANDSAT8_STACKFILE = LANDSAT_ROOT + '/columbia_landsat8_stack.hdf5'
@@ -64,5 +67,5 @@ COLUMBIA_EAST = 'columbia_east'
 POST = 'post'
 
 # Values
-GRAVITATIONAL_ACCELERATION = 9.81
-ICE_DENSITY = 800
+GRAVITATIONAL_ACCELERATION = 9.80665
+RHO_ICE = 917.0

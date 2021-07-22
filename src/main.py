@@ -10,8 +10,7 @@ from analysis.bedrock import analyze_bedrock
 from analysis.ice_thickness import analyze_ice_thickness
 from analysis.velocity import analyze_velocity
 from analysis.dem import analyze_dem
-from analysis.driving_stress import analyze_driving_stress
-from analysis.strain_stress import analyze_strain_stress
+from analysis.stress import analyze_strain_stress
 
 # ~ Methods ...................................................................
 def preprocess(verbose=False):
@@ -23,9 +22,8 @@ def preprocess(verbose=False):
 def analyze():
     # analyze_velocity()
     # analyze_bedrock()
-    # analyze_ice_thickness()
     # analyze_dem()
-    # analyze_driving_stress()
+    # analyze_ice_thickness()
     analyze_strain_stress()
 
 def main():
