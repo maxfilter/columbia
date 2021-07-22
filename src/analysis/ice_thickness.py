@@ -123,6 +123,7 @@ def build_design_matrix(t):
 
 def model_ice_thickness_tseries(raw_stack):
     t = raw_stack.tdec
+    v_stack = ice.Stack('..' + V_STACKFILE)
 
     # Interpolate Array
     data = raw_stack._datasets['data']
@@ -140,7 +141,7 @@ def model_ice_thickness_tseries(raw_stack):
         tseries.append(data[:, i, j])
 
     # Build smooth time
-    st = ice.generateRegularTimeArray(min(t), max(t))
+    st = ice.generateRegularTimeArray(min(v_stack.tdec), max(v_stack.tdec))
     model = np.full((len(st), Ny, Nx), np.nan)
 
     print('Building model...')

@@ -42,7 +42,7 @@ def model_dem_tseries():
     tseries = [data[:, i, j] for i, j in coords]
 
     # Build smooth time
-    st = ice.generateRegularTimeArray(min(t), max(t))
+    st = ice.generateRegularTimeArray(min(v_stack.tdec), max(v_stack.tdec))
     model = np.full((len(st), Ny, Nx), np.nan)
 
     print('Building model...')
